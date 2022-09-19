@@ -1,8 +1,23 @@
 <template>
   <div>
     <p style="padding: 20px">Виртуальные диски системы</p>
-    <v-data-table :headers="headers" :items="discs.blockdevices">
-    </v-data-table>
+    <v-data-table :headers="headers" :items="discs">
+      <template v-slot:item.action="{ item }">
+          <v-btn
+          :disabled="!item.mountpoint"
+            color="accent"
+          >отмонтировать</v-btn>
+          <v-btn
+            color="error"
+            :disabled="!!item.mountpoint"
+          >форматировать</v-btn>
+          <v-btn
+            color="primary"
+            :disabled="!item.fstype || !!item.mountpoint"
+            @click="checkMount(item)"
+          >примонтировать</v-btn>
+          </template>
+    </v-data-table>{{discs}}
   </div>
 </template>
 <script>
@@ -25,6 +40,12 @@ export default {
           text: "mountpoint",
           value: "mountpoint"
         },
+        {
+          text: 'Действие',
+          sortable: false,
+          value: 'action',
+          align: 'center'
+        },
       ]
     };
   },
@@ -34,6 +55,19 @@ export default {
   computed: {
     ...mapState("Disc", ["discs"])
   },
-  methods: {}
+  methods: {
+    checkMount(item) {
+      console.log(!!item.mountpoint)
+      console.log(!item.fstype, 'ftype')
+      console.log(!item.fstype || !!item.mountpoint)
+
+      return item.fstype && !item.mountpoint
+    }
+  }
 };
 </script>
+<style>
+  .v-btn {
+    margin: 5px;
+  }
+</style>
