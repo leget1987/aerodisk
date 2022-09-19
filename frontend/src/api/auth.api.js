@@ -1,7 +1,8 @@
-import httpClient from './httpClient'
+import httpClient from "./httpClient";
 
-const ENDPOINT = '/api/v1/api-token-auth/'
+const ENDPOINT = "/api/v1/api-token-auth/";
 
-const login = (username, password) => httpClient.post(ENDPOINT, { username, password })
+const login = (username, password) =>
+  httpClient.post(ENDPOINT, { username, password });
 
-export { login }
+export { login };

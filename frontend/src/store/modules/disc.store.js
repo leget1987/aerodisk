@@ -1,4 +1,4 @@
-import { fetchDisc } from '@/api/disc.api'
+import { fetchDisc } from "@/api/disc.api";
 
 export default {
   namespaced: true,
@@ -6,21 +6,19 @@ export default {
     discs: {}
   },
   getters: {
-    getDiscs: (state) => {
-      return state.discs
+    getDiscs: state => {
+      return state.discs;
     }
   },
   mutations: {
-    setDiscs (state, payload) {
-      state.discs = payload
+    setDiscs(state, payload) {
+      state.discs = payload;
     }
   },
   actions: {
-    async fetchDiscs ({ commit }) {
-      const discs = (
-        await fetchDisc()
-      ).data
-      commit('setDiscs', discs)
+    async fetchDiscs({ commit }) {
+      const discs = (await fetchDisc()).data;
+      commit("setDiscs", discs);
     }
   }
-}
+};

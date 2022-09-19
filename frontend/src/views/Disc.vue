@@ -1,41 +1,39 @@
 <template>
-    <div>
-            <p>Виртуальные диски системы</p>
-    <v-data-table
-    :headers="headers"
-    :items="discs.blockdevices"
-    >
-
+  <div>
+    <p style="padding: 20px">Виртуальные диски системы</p>
+    <v-data-table :headers="headers" :items="discs.blockdevices">
     </v-data-table>
-        {{discs.blockdevices}}
-    </div>
+  </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
-  name: 'Disc',
-  data () {
+  name: "Disc",
+  data() {
     return {
       headers: [
         {
-          text: 'Название',
-          value: 'name'
+          text: "Имя диска",
+          value: "name"
         },
         {
-          text: 'Тип',
-          value: 'fstype'
-        }
+          text: "Размер",
+          value: "size"
+        },
+        {
+          text: "mountpoint",
+          value: "mountpoint"
+        },
       ]
-    }
+    };
   },
-  created () {
-    this.$store.dispatch('Disc/fetchDiscs')
+  created() {
+    this.$store.dispatch("Disc/fetchDiscs");
   },
   computed: {
-    ...mapState('Disc', ['discs'])
+    ...mapState("Disc", ["discs"])
   },
-  methods: {
-  }
-}
+  methods: {}
+};
 </script>

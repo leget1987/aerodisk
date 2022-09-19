@@ -1,54 +1,56 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Disc from '../views/Disc.vue'
-import Login from '../views/Login.vue'
-import Home from '@/views/Home.vue'
-import { TokenService } from '../services/storage.service'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Disc from "../views/Disc.vue";
+import Login from "../views/Login.vue";
+import Home from "@/views/Home.vue";
+import { TokenService } from "../services/storage.service";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: Home
   },
   {
-    path: '/disc',
-    name: 'disc',
+    path: "/disc",
+    name: "disc",
     component: Disc
   },
   {
-    path: '/login',
-    name: 'login',
+    path: "/login",
+    name: "login",
     component: Login,
     meta: {
       public: true, // Allow access to even if not logged in
       onlyWhenLoggedOut: true
     }
   }
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes
-})
+});
 
 router.beforeEach((to, from, next) => {
-  const isPublic = to.matched.some(record => record.meta.public)
-  const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut)
-  const loggedIn = !!TokenService.getToken()
+  const isPublic = to.matched.some(record => record.meta.public);
+  const onlyWhenLoggedOut = to.matched.some(
+    record => record.meta.onlyWhenLoggedOut
+  );
+  const loggedIn = !!TokenService.getToken();
   if (!isPublic && !loggedIn) {
     return next({
-      path: '/login',
+      path: "/login",
       query: { redirect: to.fullPath } // Store the full path to redirect the user to after login
-    })
+    });
   }
   // Do not allow user to visit login page or register page if they are logged in
   if (loggedIn && onlyWhenLoggedOut) {
-    return next('/')
+    return next("/");
   }
-  next()
-})
-export default router
+  next();
+});
+export default router;
