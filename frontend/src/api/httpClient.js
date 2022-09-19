@@ -19,7 +19,8 @@ const httpClient = axios.create({
 const getAuthToken = () => TokenService.getToken()
 
 const authInterceptor = config => {
-  config.headers['Authorization'] = getAuthToken()
+  // config.headers['Authorization'] = getAuthToken()
+  config.headers.Authorization = getAuthToken()
 
   return config
 }
