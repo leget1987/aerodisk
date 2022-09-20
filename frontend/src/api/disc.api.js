@@ -1,5 +1,5 @@
-import httpClient from './httpClient'
+import httpClient from "./httpClient";
 
-const fetchDisc = () => httpClient.get('/api/v1/discs/')
+const fetchDisc = () => httpClient.get("/api/v1/discs/");
 
-export { fetchDisc }
+export { fetchDisc };

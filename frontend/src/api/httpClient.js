@@ -1,30 +1,25 @@
-import axios from 'axios'
+import axios from "axios";
 
-import { TokenService } from '../services/storage.service'
+import { TokenService } from "../services/storage.service";
 
 const httpClient = axios.create({
-
-  baseURL: 'http://localhost:8000/',
+  baseURL: "http://localhost:8000/",
 
   timeout: 10000, // indicates, 10000ms ie. 10 seconds
 
   headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-    'Content-Type': 'application/json'
+const getAuthToken = () => TokenService.getToken();
 
-  }
-
-})
-
-const getAuthToken = () => TokenService.getToken()
-
-const authInterceptor = config => {
+const authInterceptor = (config) => {
   // config.headers['Authorization'] = getAuthToken()
-  config.headers.Authorization = getAuthToken()
+  config.headers.Authorization = getAuthToken();
+  return config;
+};
 
-  return config
-}
+httpClient.interceptors.request.use(authInterceptor);
 
-httpClient.interceptors.request.use(authInterceptor)
-
-export default httpClient
+export default httpClient;
