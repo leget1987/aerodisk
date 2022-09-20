@@ -17,9 +17,12 @@ def get_disks(request):
 @api_view(['POST',])
 @csrf_exempt 
 def format(request):
-    print(request.data['name'])
-    disc_data = subprocess.run(['sudo', 'mkfs.ext4', f'/dev/{request.data["name"]}'], stdout=subprocess.PIPE, encoding='utf-8').stdout
+    # disc_data = subprocess.run(['sudo', 'mkfs.ext4', f'/dev/{request.data["name"]}'], stdout=subprocess.PIPE, encoding='utf-8').stdout
     # disc_data = subprocess.Popen(f'sudo mkfs.ext4 /{request.data["name"]}', stdout=subprocess.PIPE, encoding='utf-8').stdout
     # disc_data = subprocess.Popen(f'sudo mkfs.ext4 /dev/{request.data["name"]}', stdout=subprocess.PIPE, encoding='utf-8').stdout
-
+    # p = subprocess.Popen(['sudo', f'mkfs.ext4 /dev/{request.data["name"]}'], stdin=subprocess.PIPE)
+    # p.communicate('12345678')
+    # disc_data = p
+    print(request.data, 'data')
+    disc_data = subprocess.call(f'echo {request.data["params"]["password"]} | sudo -S mkfs.ext4 /dev/{request.data["params"]["name"]}', shell=True)
     return HttpResponse(disc_data, content_type="application/json")

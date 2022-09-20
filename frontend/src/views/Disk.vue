@@ -1,7 +1,8 @@
 <template>
   <div>
-    <p style="padding: 20px">Виртуальные диски системы</p>
-    <v-data-table :headers="headers" :items="disks">
+    <p>Виртуальные диски системы</p>
+    <v-text-field v-model="password" label="Для управления дисками введите пароль супеерпользователя"></v-text-field>
+    <v-data-table :headers="headers" :items="disks" :readonly="!!password">
       <template v-slot:item.action="{ item }">
         <v-btn :disabled="!item.mountpoint" color="accent">отмонтировать</v-btn>
         <v-btn color="error" :disabled="!!item.mountpoint" @click="format(item)"
@@ -13,8 +14,9 @@
           @click="checkMount(item)"
           >примонтировать</v-btn
         >
-      </template> </v-data-table
-    >{{ disks }}
+      </template> 
+      </v-data-table
+    >
   </div>
 </template>
 <script>
@@ -24,6 +26,7 @@ export default {
   name: "Disk",
   data() {
     return {
+      password: '',
       headers: [
         {
           text: "Имя диска",
@@ -61,8 +64,12 @@ export default {
       return item.fstype && !item.mountpoint;
     },
     format(item) {
-      console.log(item.name);
-      this.$store.dispatch("Disk/format", { name: item.name });
+      if (!this.password){
+        alert('Введите пароль суперпользователя')
+        return
+      } else {
+      this.$store.dispatch("Disk/format", { name: item.name, password: this.password });
+      this.dialog = false}
       return item.name;
     },
   },
@@ -71,5 +78,9 @@ export default {
 <style>
 .v-btn {
   margin: 5px;
+}
+.v-text-field, p {
+  padding: 20px;
+  width: 700px;
 }
 </style>
