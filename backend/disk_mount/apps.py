@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class DiscMountConfig(AppConfig):
+class DiskMountConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'disc_mount'
+    name = 'disk_mount'

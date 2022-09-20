@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'disc_mount',
+    'disk_mount',
 ]
 
 MIDDLEWARE = [
@@ -42,6 +42,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 CORS_ORIGIN_ALLOW_ALL = True   
+CSRF_TRUSTED_ORIGINS = ['https://*.localhost','https://*.127.0.0.1', 'http://localhost:8080']
 
 ROOT_URLCONF = 'aerodisk.urls'
 

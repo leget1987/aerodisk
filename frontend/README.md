@@ -1,4 +1,4 @@
-# disc-mount
+# disk-mount
 
 > A Vue.js project
 

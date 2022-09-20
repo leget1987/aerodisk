@@ -52,7 +52,7 @@ export default {
     menuItems() {
       return [
         { icon: "mdi-home", title: "Главная", link: "/" },
-        { icon: "mdi-disc", title: "Виртуальные диски", link: "/disc" },
+        { icon: "mdi-disk", title: "Виртуальные диски", link: "/disk" },
       ];
     },
   },
