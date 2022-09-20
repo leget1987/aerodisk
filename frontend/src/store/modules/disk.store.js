@@ -1,9 +1,10 @@
-import { fetchDisk, format } from "@/api/disk.api";
+import { fetchDisk, format, mount, umount } from "@/api/disk.api";
 
 export default {
   namespaced: true,
   state: {
     disks: [],
+    status: 1,
   },
   getters: {
     getDisks: (state) => {
@@ -12,9 +13,10 @@ export default {
   },
   mutations: {
     setDisks(state, payload) {
-      state.disks = payload.filter((item) =>
-        ["disk", ].includes(item.type)
-      );
+      state.disks = payload.filter((item) => ["disk"].includes(item.type));
+    },
+    setStatus(state, payload) {
+      state.status = payload;
     },
   },
   actions: {
@@ -24,8 +26,15 @@ export default {
     },
     async format({ commit }, params) {
       const responce = await format(params);
-      commit("setDisks", responce);
-      console.log(responce);
+      commit("setStatus", responce.data);
+    },
+    async mount({ commit }, params) {
+      const responce = await mount(params);
+      commit("setStatus", responce.data);
+    },
+    async umount({ commit }, params) {
+      const responce = await umount(params);
+      commit("setStatus", responce.data);
     },
   },
 };

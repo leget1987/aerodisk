@@ -25,4 +25,19 @@ def format(request):
     # disc_data = p
     print(request.data, 'data')
     disc_data = subprocess.call(f'echo {request.data["params"]["password"]} | sudo -S mkfs.ext4 /dev/{request.data["params"]["name"]}', shell=True)
+    print(disc_data)
+    return HttpResponse(disc_data, content_type="application/json")
+
+
+@api_view(['POST',])
+@csrf_exempt 
+def mount(request):
+    disc_data = subprocess.call(f'echo {request.data["params"]["password"]} | sudo -S mount /dev/{request.data["params"]["name"]} /mnt/', shell=True)
+    return HttpResponse(disc_data, content_type="application/json")
+
+
+@api_view(['POST',])
+@csrf_exempt 
+def umount(request):
+    disc_data = subprocess.call(f'echo {request.data["params"]["password"]} | sudo -S umount /dev/{request.data["params"]["name"]}', shell=True)
     return HttpResponse(disc_data, content_type="application/json")
