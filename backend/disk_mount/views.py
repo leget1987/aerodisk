@@ -18,8 +18,8 @@ def get_disks(request):
 @csrf_exempt 
 def format(request):
     print(request.data['name'])
-    # disc_data = subprocess.run(['sudo', 'mkfs.ext4', f'/dev/{request.data["name"]}'], stdout=subprocess.PIPE, encoding='utf-8').stdout
+    disc_data = subprocess.run(['sudo', 'mkfs.ext4', f'/dev/{request.data["name"]}'], stdout=subprocess.PIPE, encoding='utf-8').stdout
     # disc_data = subprocess.Popen(f'sudo mkfs.ext4 /{request.data["name"]}', stdout=subprocess.PIPE, encoding='utf-8').stdout
-    disc_data = subprocess.Popen(f'sudo mkfs.ext4 /dev/{request.data["name"]}', stdout=subprocess.PIPE, encoding='utf-8').stdout
+    # disc_data = subprocess.Popen(f'sudo mkfs.ext4 /dev/{request.data["name"]}', stdout=subprocess.PIPE, encoding='utf-8').stdout
 
     return HttpResponse(disc_data, content_type="application/json")

@@ -4,7 +4,9 @@
     <v-data-table :headers="headers" :items="disks">
       <template v-slot:item.action="{ item }">
         <v-btn :disabled="!item.mountpoint" color="accent">отмонтировать</v-btn>
-        <v-btn color="error" :disabled="!!item.mountpoint" @click="format(item)">форматировать</v-btn>
+        <v-btn color="error" :disabled="!!item.mountpoint" @click="format(item)"
+          >форматировать</v-btn
+        >
         <v-btn
           color="primary"
           :disabled="!item.fstype || !!item.mountpoint"
@@ -58,11 +60,11 @@ export default {
 
       return item.fstype && !item.mountpoint;
     },
-    format(item){
-      console.log(item.name)
-      this.$store.dispatch('Disk/format', {name: item.name})
-      return item.name
-    }
+    format(item) {
+      console.log(item.name);
+      this.$store.dispatch("Disk/format", { name: item.name });
+      return item.name;
+    },
   },
 };
 </script>

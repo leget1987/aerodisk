@@ -1,6 +1,12 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app clipped v-if="loggedIn">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      clipped
+      v-if="loggedIn"
+      width="auto"
+    >
       <v-list nav>
         <v-list-item
           v-for="item in menuItems"
@@ -52,7 +58,7 @@ export default {
     menuItems() {
       return [
         { icon: "mdi-home", title: "Главная", link: "/" },
-        { icon: "mdi-disk", title: "Виртуальные диски", link: "/disk" },
+        { icon: "mdi-disc", title: "Виртуальные диски", link: "/disk" },
       ];
     },
   },

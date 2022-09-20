@@ -12,7 +12,9 @@ export default {
   },
   mutations: {
     setDisks(state, payload) {
-      state.disks = payload.filter((item) => ["disk", "rom"].includes(item.type) );
+      state.disks = payload.filter((item) =>
+        ["disk", "rom"].includes(item.type)
+      );
     },
   },
   actions: {
@@ -20,10 +22,10 @@ export default {
       const disks = (await fetchDisk()).data.blockdevices;
       commit("setDisks", disks);
     },
-    async format({commit}, {name}) {
-      const responce = await format(name)
+    async format({ commit }, { name }) {
+      const responce = await format(name);
       commit("setDisks", responce);
-      console.log(responce)
-    }
+      console.log(responce);
+    },
   },
 };
