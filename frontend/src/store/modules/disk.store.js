@@ -25,16 +25,35 @@ export default {
       commit("setDisks", disks);
     },
     async format({ commit }, params) {
-      const responce = await format(params);
-      commit("setStatus", responce.data);
+      try {
+        const responce = await format(params);
+        commit("setStatus", responce.data);
+      } catch (error) {
+        commit("setStatus", error);
+      }
     },
+
     async mount({ commit }, params) {
-      const responce = await mount(params);
-      commit("setStatus", responce.data);
+      try {
+        const responce = await mount(params);
+        commit(
+          "setStatus",
+          responce.data ? responce.data : "Монтирование завершено"
+        );
+      } catch (error) {
+        commit("setStatus", error);
+      }
     },
     async umount({ commit }, params) {
-      const responce = await umount(params);
-      commit("setStatus", responce.data);
+      try {
+        const responce = await umount(params);
+        commit(
+          "setStatus",
+          responce.data ? responce.data : "Диск отмонтирован"
+        );
+      } catch (error) {
+        commit("setStatus", error);
+      }
     },
   },
 };

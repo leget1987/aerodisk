@@ -86,7 +86,6 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error);
             this.errorMessages = "не правильные логин или пароль";
             this.snackbar = true;
           });

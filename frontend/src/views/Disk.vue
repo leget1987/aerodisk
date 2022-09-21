@@ -3,7 +3,10 @@
     <p>Виртуальные диски системы</p>
     <v-text-field
       v-model="password"
-      label="Для управления дисками введите пароль супеерпользователя"
+      label="Для управления дисками введите пароль суперпользователя"
+      :type="showPassword ? 'text' : 'password'"
+      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+      @click:append="showPassword = !showPassword"
     ></v-text-field>
     <v-data-table :headers="headers" :items="disks" :readonly="!!password">
       <template v-slot:item.action="{ item }">
@@ -30,6 +33,7 @@ export default {
   name: "Disk",
   data() {
     return {
+      showPassword: false,
       password: "",
       headers: [
         {
@@ -60,13 +64,6 @@ export default {
     ...mapState("Disk", ["disks", "status"]),
   },
   methods: {
-    checkMount(item) {
-      console.log(!!item.mountpoint);
-      console.log(!item.fstype, "ftype");
-      console.log(!item.fstype || !!item.mountpoint);
-
-      return item.fstype && !item.mountpoint;
-    },
     format(item) {
       if (!this.password) {
         alert("Введите пароль суперпользователя");
@@ -75,11 +72,7 @@ export default {
         this.$store
           .dispatch("Disk/format", { name: item.name, password: this.password })
           .then(() => {
-            if (this.status === 1) {
-              alert("Произошла ошибка при форматирование");
-            } else {
-              alert(`Форматирование диска ${item.name} выполнено`);
-            }
+            alert(this.status);
           })
           .finally(() => {
             this.$store.dispatch("Disk/fetchDisks");
@@ -94,11 +87,7 @@ export default {
         this.$store
           .dispatch("Disk/umount", { name: item.name, password: this.password })
           .then(() => {
-            if (this.status === 1) {
-              alert("Произошла ошибка при отмонтирование");
-            } else {
-              alert(`Отмонтирование диска ${item.name} выполнено`);
-            }
+            alert(this.status);
           })
           .finally(() => {
             this.$store.dispatch("Disk/fetchDisks");
@@ -113,11 +102,7 @@ export default {
         this.$store
           .dispatch("Disk/mount", { name: item.name, password: this.password })
           .then(() => {
-            if (this.status === 1) {
-              alert("Произошла ошибка при монтирование");
-            } else {
-              alert(`Монтирование диска ${item.name} выполнено`);
-            }
+            alert(this.status);
           })
           .finally(() => {
             this.$store.dispatch("Disk/fetchDisks");

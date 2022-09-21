@@ -40,9 +40,9 @@
         <span class="title hidden-sm-and-down">{{ appTitle }}</span>
       </v-toolbar-title>
     </v-app-bar>
-    <v-content transition="slide-x-transition">
+    <v-main transition="slide-x-transition">
       <router-view></router-view>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 <script>
